@@ -1,5 +1,8 @@
 package tugasAsd.presentation.leaf;
 
+import java.security.InvalidParameterException;
+import java.util.Scanner;
+
 import tugasAsd.models.Account;
 import tugasAsd.models.Posting;
 import tugasAsd.presentation.CustomLoginModule;
@@ -13,6 +16,7 @@ public class PostingModule implements Module {
 
     public PostingModule(String name, int choose) {
         this.name = name;
+        if(choose == 0) throw new InvalidParameterException("The choose parameter cannot be zero. Please enter a different value.");
         this.choose = choose;
     }
 
@@ -48,24 +52,25 @@ public class PostingModule implements Module {
 
     @Override
     public void start() {
+        Scanner scanner = new Scanner(System.in);
         Account currentAccount = this.parent.getCurrentAccount();
         GraphCustom graphCustom = this.parent.getGraph();
-        System.out.println("masukkan judul postingan: ");
-        String judul = this.parent.getScanner().nextLine();
-        System.out.println("masukkan isi postingan: ");
-        String isi = this.parent.getScanner().nextLine();
+        System.out.println("Masukkan judul postingan: ");
+        String judul = scanner.nextLine();
+        System.out.println("Masukkan isi postingan: ");
+        String isi = scanner.nextLine();
         Posting newPosting = new Posting(currentAccount.getUsername(), judul, isi);
         newPosting.printPosting();
-        System.out.println("apakah anda yakin ingin memposting? (y/n)");
-        String input = this.parent.getScanner().nextLine();
+        System.out.println("Apakah anda yakin ingin di-post? (y/n)");
+        String input = scanner.nextLine();
         if(input.equals("y")) {
             graphCustom.getFollowers(currentAccount).forEach(follower -> {
                 follower.getPostingQueue().addPosting(newPosting);
             });
-            System.out.println("postingan berhasil dibuat");
+            System.out.println("Postingan berhasil dibuat");
         }
         else{
-            System.out.println("postingan dibatalkan");
+            System.out.println("Postingan dibatalkan");
         }
         this.parent.partialStart();
     }

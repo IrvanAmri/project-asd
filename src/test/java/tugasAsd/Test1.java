@@ -2,11 +2,11 @@ package tugasAsd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import tugasAsd.presentation.CoreModule;
 import tugasAsd.presentation.CustomLoginModule;
 import tugasAsd.presentation.leaf.BerandaModule;
+import tugasAsd.presentation.leaf.CreateAccountModule;
 import tugasAsd.presentation.leaf.FollowModule;
 import tugasAsd.presentation.leaf.PostingModule;
 import tugasAsd.service.GraphCustom;
@@ -19,15 +19,17 @@ public class Test1 {
 
     public static void begin(){
         // resource
-        Scanner scanner = new Scanner(System.in);
         GraphCustom graph = new GraphCustom();
 
         // main module
-        CoreModule core = new CoreModule("Aplikasi Medsos CLI", 1, scanner);
+        CoreModule core = new CoreModule("Aplikasi Medsos CLI", 1);
 
         // sub module
-        CustomLoginModule login = new CustomLoginModule("Login", 1, graph, scanner);
+        CustomLoginModule login = new CustomLoginModule("Login", 1, graph);
         login.setParent(core);
+
+        CreateAccountModule createAccount = new CreateAccountModule("Create Account", 2, graph);
+        createAccount.setParent(core);
 
         // login leaf module
         BerandaModule beranda = new BerandaModule("Beranda", 1);
@@ -42,10 +44,9 @@ public class Test1 {
 
 
         // main arangements
-        core.setModules(new ArrayList<>(List.of(login)));
+        core.setModules(new ArrayList<>(List.of(login, createAccount)));
 
 
         core.start();
-        scanner.close();
     }
 }

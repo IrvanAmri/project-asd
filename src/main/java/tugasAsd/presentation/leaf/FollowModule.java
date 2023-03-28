@@ -1,6 +1,8 @@
 package tugasAsd.presentation.leaf;
 
+import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.Scanner;
 
 import tugasAsd.models.Account;
 import tugasAsd.presentation.CustomLoginModule;
@@ -15,6 +17,7 @@ public class FollowModule implements Module {
 
     public FollowModule(String name, int choose) {
         this.name = name;
+        if(choose == 0) throw new InvalidParameterException("The choose parameter cannot be zero. Please enter a different value.");
         this.choose = choose;
     }
 
@@ -50,14 +53,15 @@ public class FollowModule implements Module {
 
     @Override
     public void start() {
-        System.out.println("accounts list");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("List Akun yang ada: ");
         List<Account> accounts = this.parent.getGraph().getAccounts();
         for (Account account : accounts) {
             if(account == this.parent.getCurrentAccount()) continue;
             account.printAccount();
         }
-        System.out.println("type the username of the account you want to follow, or type 'back' to go back");
-        String input = this.parent.getScanner().nextLine();
+        System.out.println("Masukkan username yang ingin anda follow (jika batal, ketik 'back'): ");
+        String input = scanner.nextLine();
         if(input.equals("back")) {
             System.out.println("operation canceled");
         }
@@ -67,10 +71,10 @@ public class FollowModule implements Module {
             if(accountToFollow != null){
                 Account currentAccount = this.parent.getCurrentAccount();
                 graph.addEdge(currentAccount, accountToFollow);
-                System.out.println("you are now following " + accountToFollow.getUsername());
+                System.out.println("Anda sekarang mem-follow " + accountToFollow.getUsername());
             }
             else{
-                System.out.println("account not found");
+                System.out.println("Akun tidak ditemukan");
             }
         }
         this.parent.partialStart();

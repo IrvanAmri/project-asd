@@ -10,20 +10,19 @@ public class CoreModule implements Module{
     private List<? extends Module> modules;
     private String name;
     private int choose;
-    private Scanner scanner;
     private CoreModule parent;
 
-    public CoreModule(String name, int choose, Scanner scanner) throws InvalidParameterException{
+    public CoreModule(String name, int choose) throws InvalidParameterException{
         this.name = name;
         if(choose == 0) throw new InvalidParameterException("The choose parameter cannot be zero. Please enter a different value.");
         this.choose = choose;
-        this.scanner = scanner;
         this.modules = new ArrayList<>();
         this.parent = null;
     }
-
+    
     @Override
     public void start() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("=====================================");
         if(this.parent == null) System.out.println("Selamat datang di "+ this.name);
         else System.out.println("Module: "+this.name);
@@ -36,11 +35,12 @@ public class CoreModule implements Module{
         }
         System.out.println(0+". Keluar");
         System.out.println("pilih module: ");
-        int choosen = scanner.nextInt();
+        int choosen = Integer.parseInt(scanner.nextLine());
         if(choosen == 0){
             if(this.parent != null) this.parent.start();
             else{
                 System.out.println("Terima kasih telah menggunakan "+this.name);
+                scanner.close();
                 return;
             } 
         }
@@ -51,6 +51,7 @@ public class CoreModule implements Module{
                 }
             }
         }
+        scanner.close();
     }
 
     @Override
@@ -89,13 +90,5 @@ public class CoreModule implements Module{
 
     public void setModules(List<? extends Module> modules) {
         this.modules = modules;
-    }
-
-    public Scanner getScanner() {
-        return scanner;
-    }
-
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
     }
 }

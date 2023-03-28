@@ -1,5 +1,7 @@
 package tugasAsd.presentation.leaf;
 
+import java.security.InvalidParameterException;
+
 import tugasAsd.presentation.CustomLoginModule;
 import tugasAsd.presentation.Module;
 
@@ -11,6 +13,7 @@ public class BerandaModule implements Module{
 
     public BerandaModule(String name, int choose) {
         this.name = name;
+        if(choose == 0) throw new InvalidParameterException("The choose parameter cannot be zero. Please enter a different value.");
         this.choose = choose;
     }
 
