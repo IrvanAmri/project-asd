@@ -1,13 +1,11 @@
 package tugasAsd;
 
-/**
- * Hello world!
- *
- */
+import tugasAsd.presentation.CorePresentation;
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        CorePresentation.begin();
     }
 }
