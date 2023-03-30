@@ -53,6 +53,9 @@ public class PostingModule implements Module {
     @Override
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("===============================");
+        System.out.println("Posting");
+        System.out.println("-------------------------------");
         Account currentAccount = this.parent.getCurrentAccount();
         GraphCustom graphCustom = this.parent.getGraph();
         System.out.println("Masukkan judul postingan: ");

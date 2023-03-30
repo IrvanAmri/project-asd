@@ -117,7 +117,9 @@ public class CustomLoginModule implements Module {
 
     public void partialStart(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("=====================================");
+        System.out.println("===============================");
+        System.out.println("Selamat datang di Menu Utama");
+        System.out.println("-------------------------------");
         for(Module module : modules){
             System.out.println(module.getChoose()+". "+module.getName());
         }

@@ -57,6 +57,9 @@ public class CreateAccountModule implements Module {
     @Override
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("===============================");
+        System.out.println("Create Account");
+        System.out.println("-------------------------------");
         System.out.println("Masukkan username: ");
         String username = scanner.nextLine();
         Account account = this.graph.getAccount(username);

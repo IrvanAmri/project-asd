@@ -54,6 +54,9 @@ public class FollowModule implements Module {
     @Override
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("===============================");
+        System.out.println("Follow");
+        System.out.println("-------------------------------");
         System.out.println("List Akun yang ada: ");
         List<Account> accounts = this.parent.getGraph().getAccounts();
         for (Account account : accounts) {

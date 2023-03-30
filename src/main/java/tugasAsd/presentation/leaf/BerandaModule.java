@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 
 import tugasAsd.presentation.CustomLoginModule;
 import tugasAsd.presentation.Module;
+import tugasAsd.service.QueueCustom;
 
 public class BerandaModule implements Module{
 
@@ -49,10 +50,26 @@ public class BerandaModule implements Module{
 
     @Override
     public void start() {
-        this.parent.getCurrentAccount().getPostingQueue().getAllPosting().forEach(posting -> {
-            posting.printPosting();
-        });
+        System.out.println("===============================");
+        System.out.println("Beranda");
+        System.out.println("-------------------------------");
+        QueueCustom postingQueue = this.parent.getCurrentAccount().getPostingQueue();
+        if(postingQueue.getSize()>0){
+            postingQueue.getAllPosting().forEach(posting -> {
+                posting.printPosting();
+            });
+        }
+        else{
+            System.out.println("tidak ada postingan yang ditemukan");
+        }
         this.parent.partialStart();
+
+        // this.parent.getCurrentAccount()
+        //     .getPostingQueue()
+        //     .getAllPosting()
+        //     .forEach(posting -> {
+        //         posting.printPosting();
+        //     });
     }
     
 }
